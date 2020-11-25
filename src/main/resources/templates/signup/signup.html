@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Signup Page</title>
+    <th:block th:replace="meta/meta :: meta">
+        shared meta
+    </th:block>
+</head>
+<body>
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h3>Signup</h3>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/signup}" th:object="${userForm}" method="post">
+                    <div class="login-error" th:if="${error}">
+                        An error occurred.
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input name="username" th:field="*{username}" class="form-control" th:placeholder="username" type="text" th:value="${username}">
+                        </div>
+
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                            <div>username is required.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input name="password" th:field="*{password}" class="form-control" placeholder="******" type="password" th:value="${password}">
+                        </div>
+
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                            <div>Password is required.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input name="firstname" th:field="*{firstname}" class="form-control" th:placeholder="firstname" type="text" th:value="${firstname}">
+                        </div>
+
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">
+                            <div>Firstname is required.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input name="lastname" th:field="*{lastname}" class="form-control" th:placeholder="lastname" type="text" th:value="${lastname}">
+                        </div>
+
+                        <div class="alert alert-danger" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">
+                            <div>Lastname is required.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Signup" class="btn btn-outline-primary float-right">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

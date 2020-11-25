@@ -1,0 +1,81 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>User</title>
+	<th:block th:replace="meta/meta :: meta">
+		shared meta
+	</th:block>
+
+<style>
+	table, th, td {
+		border: 1px solid black;
+	}
+</style>
+</head>
+<body>
+
+<div class="user-profile-content container-fluid">
+
+	<div class="d-flex justify-content-center">
+		<div class="card">
+			<div class="card-header">
+				<h3 th:text="'Welcome ' + ${user}">Welcome</h3>
+				You current balance : <h5 th:text="${userBalance}">0.0</h5>
+			</div>
+			<div class="card-body">
+				<div class="login-error" th:if="${error}">
+					An error occurred.
+				</div>
+				<form th:action="@{/user/transaction}" th:object="${transactionForm}" method="post">
+					<div class="input-group form-group">
+						<div class="custom-control custom-radio">
+							<input class="custom-control-input" type="radio" th:field="*{transactionType}" th:value="${T(com.banking.test.enums.TransactionTypeEnum).WITHDRAW}">
+							<label class="custom-control-label" th:for="${#ids.prev('transactionType')}">WITHDRAW</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input class="custom-control-input" type="radio" th:field="*{transactionType}" th:value="${T(com.banking.test.enums.TransactionTypeEnum).DEPOSIT}">
+							<label class="custom-control-label" th:for="${#ids.prev('transactionType')}">DEPOSIT</label>
+						</div>
+					</div>
+
+					<div class="input-group form-group">
+						<input type="number" step="any" class="form-control" placeholder="amount" name="amount">
+
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">
+							<div>amount is required.</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<input type="submit" value="make transaction" class="btn btn-outline-primary float-right">
+					</div>
+				</form>
+
+				<div style="clear: both"></div>
+
+				<table id="table">
+					<tr>
+						<th>Transaction Type</th>
+						<th>Date and time</th>
+						<th>Amount</th>
+						<th>Balance before</th>
+					</tr>
+					<tr th:each="transaction : ${userTransactions}">
+						<td th:text="${transaction.transactionType}">Transaction Type</td>
+						<td th:text="${transaction.dateTime}">Date and time</td>
+						<td th:text="${transaction.amount}">Amount</td>
+						<td th:text="${transaction.balance}">Balance before</td>
+					</tr>
+				</table>
+
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+</body>
+
+</html>

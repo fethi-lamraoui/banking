@@ -1,0 +1,34 @@
+<!DOCTYPE>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Home</title>
+	<th:block th:replace="meta/meta :: meta">
+		shared meta
+	</th:block>
+</head>
+<body>
+
+<div class="content container-fluid">
+	
+	<div>
+
+		<div class="signin-body">
+
+			<h3>Welcome to the online bank</h3>
+
+			<a th:href="@{/signin}">
+				<button class="btn btn-outline-primary" type="button">Signin</button>
+			</a>
+			<p></p>
+			<a th:href="@{/signup}">
+				<button class="btn btn-outline-primary" type="button">Sign up</button>
+			</a>
+
+		</div>
+
+	</div>
+
+</div>
+
+</body>
+</html>
